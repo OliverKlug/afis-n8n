@@ -1,21 +1,20 @@
-# afis-n8n
-Autonomous Multi-Agent System for Financial Analysis using n8n and LLMs.
-# 🤖 AFIS
+# 🤖 AFIS – Autonomous Financial Intelligence System
 
 A sophisticated **n8n-based portfolio management system** that integrates AI advisors, real-time market data, and risk analytics via Telegram.
 
 ![n8n](https://img.shields.io/badge/n8n-Workflow-orange?style=for-the-badge&logo=n8n)
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-blue?style=for-the-badge&logo=telegram)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=for-the-badge&logo=openai)
 
 ---
 
-##  Features
+## ✨ Features
 
 ### 📊 Portfolio Management
 - **Multi-Asset Support**: Stocks, Crypto, Commodities, and Bonds
 - **Persistent Storage**: PostgreSQL-backed portfolio storage
-- **Real-Time Pricing**: Multi-source price feeds with fallbacks
+- **Real-Time Pricing**: Multi-source price feeds with automatic fallbacks
 
 ### 🧠 AI Advisors
 Receive investment insights from AI-powered financial personas:
@@ -37,6 +36,13 @@ Receive investment insights from AI-powered financial personas:
 - Target allocation comparison
 - Actionable rebalancing suggestions
 
+### 🔄 Price Fallback Chain
+The system ensures reliable pricing with automatic fallbacks:
+1. **Primary API** (Polygon.io / CoinGecko / TwelveData)
+2. **Yahoo Finance** (free fallback)
+3. **Cached prices** (if available)
+4. **Zero with error flag** (last resort)
+
 ---
 
 ## 🚀 Quick Start
@@ -44,48 +50,62 @@ Receive investment insights from AI-powered financial personas:
 ### Prerequisites
 - [n8n](https://n8n.io/) (self-hosted or cloud)
 - PostgreSQL Database
-- Telegram Bot Token
-- API Keys:
-  - [Polygon.io](https://polygon.io/) (Stocks)
-  - [CoinGecko](https://www.coingecko.com/en/api) (Crypto)
-  - [TwelveData](https://twelvedata.com/) (Commodities)
+- Telegram Bot Token (from [@BotFather](https://t.me/BotFather))
+- **OpenAI API Key** (GPT-4 recommended, GPT-3.5-turbo works)
+
+#### Optional API Keys:
+| API | Purpose | Free Tier |
+|-----|---------|-----------|
+| [Polygon.io](https://polygon.io/) | Stocks | 5 calls/min |
+| [TwelveData](https://twelvedata.com/) | Commodities | 800 calls/day |
+| [CoinGecko](https://www.coingecko.com/en/api) | Crypto | No key needed (10-50 calls/min) |
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/ai-hedge-fund.git
-   cd ai-hedge-fund
+   git clone https://github.com/OliverKlug/afis-n8n.git
+   cd afis-n8n
    ```
 
 2. **Import the workflow**
    - Open n8n
    - Go to **Settings → Import Workflow**
-   - Select `agentic-market-reasoning.json`
+   - Select the workflow JSON file
 
 3. **Configure credentials**
    - Add your Telegram Bot credentials
    - Add PostgreSQL connection
-   - Add API keys for Polygon, CoinGecko, and TwelveData
+   - Add OpenAI API key
+   - Add API keys for Polygon and TwelveData (optional)
 
 4. **Set up the database**
    ```sql
+   -- Portfolios table
    CREATE TABLE portfolios (
      id SERIAL PRIMARY KEY,
-     user_id BIGINT NOT NULL,
+     user_id BIGINT UNIQUE NOT NULL,
      username VARCHAR(255),
      holdings JSONB NOT NULL,
-     created_at TIMESTAMP DEFAULT NOW()
+     created_at TIMESTAMPTZ DEFAULT NOW(),
+     updated_at TIMESTAMPTZ DEFAULT NOW()
    );
 
+   -- Portfolio snapshots
    CREATE TABLE portfolio_snapshots (
      id SERIAL PRIMARY KEY,
      user_id BIGINT NOT NULL,
      total_value DECIMAL(15,2),
      holdings JSONB,
      metrics JSONB,
-     created_at TIMESTAMP DEFAULT NOW()
+     created_at TIMESTAMPTZ DEFAULT NOW()
    );
+
+   -- Indexes for performance
+   CREATE INDEX idx_portfolios_user 
+     ON portfolios(user_id);
+   CREATE INDEX idx_snapshots_user_date 
+     ON portfolio_snapshots(user_id, created_at DESC);
    ```
 
 5. **Activate the workflow** and start the Telegram bot
@@ -171,23 +191,23 @@ flowchart TB
 
 ---
 
-## ⚠️ Disclaimer
-
-> **This is not financial advice.** This tool is for educational and informational purposes only. Always consult a licensed financial advisor before making investment decisions. Past performance does not guarantee future results.
-
----
-
 ## 🛠️ Configuration
 
-### Environment Variables
+### Required Credentials
 
-| Variable | Description |
-|----------|-------------|
-| `TELEGRAM_BOT_TOKEN` | Your Telegram Bot API token |
-| `POSTGRES_HOST` | PostgreSQL host |
-| `POSTGRES_DB` | Database name |
-| `POLYGON_API_KEY` | Polygon.io API key |
-| `TWELVEDATA_API_KEY` | TwelveData API key |
+| Credential | Description | How to Get |
+|------------|-------------|------------|
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot API token | [@BotFather](https://t.me/BotFather) |
+| `POSTGRES_*` | Database connection | Local or cloud (Supabase, etc.) |
+| `OPENAI_API_KEY` | OpenAI API key | [platform.openai.com](https://platform.openai.com) |
+
+### Optional API Keys
+
+| Credential | Description | Rate Limit |
+|------------|-------------|------------|
+| `POLYGON_API_KEY` | Stock prices | 5 calls/min (free) |
+| `TWELVEDATA_API_KEY` | Commodity prices | 800 calls/day (free) |
+| CoinGecko | Crypto prices | No key needed |
 
 ### Target Allocations (Customizable)
 
@@ -200,6 +220,12 @@ Default rebalancing targets:
   'Commodity': 15
 }
 ```
+
+---
+
+## ⚠️ Disclaimer
+
+> **This is not financial advice.** This tool is for educational and informational purposes only. Always consult a licensed financial advisor before making investment decisions. Past performance does not guarantee future results.
 
 ---
 
@@ -226,10 +252,16 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 For questions or support, open an issue on GitHub.
 
 ---
+
 ---
+
 ## 📝 Note
 
 This README was created with AI assistance. While the content accurately describes the project, please verify technical details against the actual implementation.
 
+---
 
-**Built with ❤️ using n8n**
+<p align="center">
+  <b>Built with ❤️ using n8n</b>
+</p>
+

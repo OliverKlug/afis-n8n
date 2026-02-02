@@ -1,4 +1,4 @@
-# 🤖 AFIS – Autonomous Financial Intelligence System
+#  AFIS – Autonomous Financial Intelligence System
 
 A sophisticated **n8n-based portfolio management system** that integrates AI advisors, real-time market data, and risk analytics via Telegram.
 
@@ -9,14 +9,14 @@ A sophisticated **n8n-based portfolio management system** that integrates AI adv
 
 ---
 
-## ✨ Features
+##  Features
 
-### 📊 Portfolio Management
+###  Portfolio Management
 - **Multi-Asset Support**: Stocks, Crypto, Commodities, and Bonds
 - **Persistent Storage**: PostgreSQL-backed portfolio storage
 - **Real-Time Pricing**: Multi-source price feeds with automatic fallbacks
 
-### 🧠 AI Advisors
+###  AI Advisors
 Receive investment insights from AI-powered financial personas:
 - **Warren Buffett** – Value Investing
 - **Ray Dalio** – Macro & Risk Parity
@@ -24,19 +24,19 @@ Receive investment insights from AI-powered financial personas:
 - **Bill Ackman** – Activist Approach
 - **Michael Burry** – Contrarian Analysis
 
-### 📈 Risk Analytics
+###  Risk Analytics
 - Sharpe Ratio & Volatility
 - Value at Risk (VaR 95%)
 - Maximum Drawdown
 - Beta Analysis
 - Concentration Risk Assessment
 
-### ⚖️ Rebalancing
+###  Rebalancing
 - Automatic drift detection
 - Target allocation comparison
 - Actionable rebalancing suggestions
 
-### 🔄 Price Fallback Chain
+###  Price Fallback Chain
 The system ensures reliable pricing with automatic fallbacks:
 1. **Primary API** (Polygon.io / CoinGecko / TwelveData)
 2. **Yahoo Finance** (free fallback)
@@ -45,7 +45,7 @@ The system ensures reliable pricing with automatic fallbacks:
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - [n8n](https://n8n.io/) (self-hosted or cloud)
@@ -139,7 +139,7 @@ The system ensures reliable pricing with automatic fallbacks:
 
 ---
 
-## 🏦 Supported Assets
+##  Supported Assets
 
 | Category | Symbols |
 |----------|---------|
@@ -150,7 +150,7 @@ The system ensures reliable pricing with automatic fallbacks:
 
 ---
 
-## 🔧 Architecture
+##  Architecture
 
 ```mermaid
 flowchart TB
@@ -179,7 +179,7 @@ flowchart TB
 
 ---
 
-## 📊 Risk Metrics Explained
+##  Risk Metrics Explained
 
 | Metric | Description |
 |--------|-------------|
@@ -191,7 +191,7 @@ flowchart TB
 
 ---
 
-## 🛠️ Configuration
+##  Configuration
 
 ### Required Credentials
 
@@ -223,13 +223,13 @@ Default rebalancing targets:
 
 ---
 
-## ⚠️ Disclaimer
+##  Disclaimer
 
 > **This is not financial advice.** This tool is for educational and informational purposes only. Always consult a licensed financial advisor before making investment decisions. Past performance does not guarantee future results.
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -241,7 +241,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📧 Contact
+##  Contact
 
 For questions or support, open an issue on GitHub.
 
@@ -249,13 +249,13 @@ For questions or support, open an issue on GitHub.
 
 ---
 
-## 📝 Note
+##  Note
 
 This README was created with AI assistance. While the content accurately describes the project, please verify technical details against the actual implementation.
 
 ---
 
 <p align="center">
-  <b>Built with ❤️ using n8n</b>
+  <b>Built with ❤️ using n8n and AI</b>
 </p>
 

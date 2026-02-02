@@ -112,7 +112,7 @@ The system ensures reliable pricing with automatic fallbacks:
 
 ---
 
-## 💬 Telegram Commands
+## Telegram Commands
 
 | Command | Description |
 |---------|-------------|

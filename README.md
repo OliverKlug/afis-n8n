@@ -6,7 +6,7 @@ A sophisticated **n8n-based portfolio management system** that integrates AI adv
 ![Telegram](https://img.shields.io/badge/Telegram-Bot-blue?style=for-the-badge&logo=telegram)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192?style=for-the-badge&logo=postgresql)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=for-the-badge&logo=openai)
-
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/OliverKlug/afis-n8n?utm_source=oss&utm_medium=github&utm_campaign=OliverKlug%2Fafis-n8n&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 ---
 
 ##  Features
